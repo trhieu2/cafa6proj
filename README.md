@@ -4,10 +4,13 @@
 **Input:** embeddings + train labels (`train_terms.tsv`) + GO ontology (`go-basic.obo`) + (tuỳ chọn) GOA (`goa_uniprot_all.csv`)  
 **Output:** `submission.tsv` (3 cột tab-separated: `protein_id`, `go_term`, `score`).
 ## Pipeline (high level)
-Download data/embeddings
-├─ Build label space & targets per aspect (C/F/P)
-├─ Train 3-head MLP (thực tế là 3 model: C, F, P)
-├─ Predict test scores (C/F/P) → merge
-├─ Ontology propagation (child → parent, max score)
-├─ (Optional) GOA negative removal + add GOA positives
-└─ Export submission.tsv
+
+- Download competition data + embeddings
+- Build label space & targets cho từng aspect: **C / F / P**
+- Train **3 model** (mỗi aspect 1 MLP)
+- Predict test cho từng aspect → merge thành bảng `(protein_id, go_term, score)`
+- Ontology propagation: lan truyền điểm từ **child → parent** bằng **max**
+- (Optional) GOA postprocess:
+  - remove các GO term bị đánh dấu **NOT**
+  - add GOA positives (ground truth) với score cấu hình
+- Export `submission.tsv`
