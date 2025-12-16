@@ -1,4 +1,4 @@
-# C# INT34057 Project — CAFA-6 Protein Function Prediction
+<img width="241" height="110" alt="image" src="https://github.com/user-attachments/assets/10b061c9-9fb6-478c-891e-5b54678d56ab" />## INT34057 Project — CAFA-6 Protein Function Prediction
 
 Repo này là codebase cho cuộc thi Kaggle **CAFA-6 Protein Function Prediction**: dự đoán **GO terms** cho **protein** dựa trên **chuỗi acid amin**
 
@@ -23,6 +23,39 @@ Repo này là codebase cho cuộc thi Kaggle **CAFA-6 Protein Function Predictio
 ```bash
 git clone <YOUR_REPO_URL>
 cd <YOUR_REPO_FOLDER>
+```
+### 1) Create environment + install
+```bash
+python -m venv .venv
+# Linux/macOS:
+source .venv/bin/activate
+# Windows (PowerShell):
+# .venv\Scripts\Activate.ps1
+
+pip install -U pip
+pip install -e .
+```
+### 2) (Required) Kaggle API token for data and submit
+Tạo token kaggle.json trên Kaggle: Account → API → Create New Token.
+Locate token đúng vị trí:
+```bash
+mkdir -p ~/.config/kaggle
+cp /path/to/kaggle.json ~/.config/kaggle/kaggle.json
+chmod 600 ~/.config/kaggle/kaggle.json
+```
+### 3) Download data + embeddings (+ optional GOA)
+```bash
+scripts/01_download_all.sh
+```
+### 4) Train
+```bash
+scripts/02_train.sh
+```
+### 5) Predict + create submission
+```bash
+scripts/03_predict.sh
+```
+
 
 
 
