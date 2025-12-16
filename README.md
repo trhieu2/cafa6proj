@@ -17,7 +17,7 @@
   - add GOA positives (ground truth) với score cấu hình
 - Export `submission.tsv`
 
-## TL;DR / Quickstart (3–5 phút)
+## TL;DR / Quickstart
 
 ### 1) Create environment + install
 ```bash
@@ -25,3 +25,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install -U pip
 pip install -e .
+mkdir -p /root/.config/kaggle
+cp /workspace/kaggle.json /root/.config/kaggle/kaggle.json
+chmod 600 /root/.config/kaggle/kaggle.json
+
