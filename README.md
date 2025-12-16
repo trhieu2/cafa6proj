@@ -1,31 +1,28 @@
-# CAFA6 Protein Function Prediction
+# C# INT34057 Project — CAFA-6 Protein Function Prediction
 
-**Bài toán:** dự đoán các **GO terms** (multi-label) cho protein ở 3 nhánh GO (**C/F/P**) từ **precomputed ESM-650M embeddings**.  
-**Input:** embeddings + train labels (`train_terms.tsv`) + GO ontology (`go-basic.obo`) + (tuỳ chọn) GOA (`goa_uniprot_all.csv`)  
-**Output:** `submission.tsv` (3 cột tab-separated: `protein_id`, `go_term`, `score`).
-## Pipeline (high level)
+Repo này là codebase cho cuộc thi Kaggle **CAFA-6 Protein Function Prediction**: dự đoán **GO terms** cho **protein** dựa trên **chuỗi acid amin**
 
-## Pipeline (high level)
+- **Input:** CAFA6 dataset (FASTA + train_terms + go-basic.obo) + embeddings (protein_ids + protein_embeddings) + (optional) GOA annotations.
+- **Output:** `submission.tsv` gồm 3 cột tab-separated: `protein_id`, `go_term`, `score`.
 
-- Download competition data + embeddings
-- Build label space & targets cho từng aspect: **C / F / P**
-- Train **3 model** (mỗi aspect 1 MLP)
-- Predict test cho từng aspect → merge thành bảng `(protein_id, go_term, score)`
-- Ontology propagation: lan truyền điểm từ **child → parent** bằng **max**
-- (Optional) GOA postprocess:
-  - remove các GO term bị đánh dấu **NOT**
-  - add GOA positives (ground truth) với score cấu hình
-- Export `submission.tsv`
+## What this project does (pipeline overview)
+
+1. Download CAFA6 competition data + embeddings (+ optional GOA).
+2. Build label space & training targets theo 3 aspects của GO: **C / F / P**.
+3. Train 3 model MLP (mỗi aspect một model).
+4. Predict trên test set và merge các dự đoán lại thành bảng `(protein_id, term, score)`.
+5. **Ontology propagation:** lan truyền score từ child terms lên ancestor terms bằng max.
+6. (Optional) **GOA postprocess:** loại các term “NOT” và/hoặc thêm GOA positives.
+7. Export `submission.tsv`.
 
 ## TL;DR / Quickstart
 
-### 1) Create environment + install
+> Các lệnh dưới đây chạy được trên local / Vast.ai / Colab / server bất kỳ, miễn là có Python và (khuyến nghị) GPU.
+
+### 0) Clone repo
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -U pip
-pip install -e .
-mkdir -p /root/.config/kaggle
-cp /workspace/kaggle.json /root/.config/kaggle/kaggle.json
-chmod 600 /root/.config/kaggle/kaggle.json
+git clone <YOUR_REPO_URL>
+cd <YOUR_REPO_FOLDER>
+
+
 
