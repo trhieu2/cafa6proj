@@ -22,7 +22,7 @@ Repo này là codebase cho cuộc thi Kaggle **CAFA-6 Protein Function Predictio
 ### 0) Clone repo
 ```bash
 git clone https://github.com/trhieu2/cafa6proj.git
-cd <YOUR_REPO_FOLDER>
+cd cafa6proj
 ```
 ### 1) Create environment + install
 ```bash
