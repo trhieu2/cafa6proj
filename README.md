@@ -15,7 +15,7 @@ Repo này là codebase cho cuộc thi Kaggle **CAFA-6 Protein Function Predictio
 6. (Optional) **GOA postprocess:** loại các term “NOT” và/hoặc thêm GOA positives.
 7. Export `submission.tsv`.
 
-## TL;DR / Quickstart
+## Quickstart
 
 > Các lệnh dưới đây chạy được trên local / Vast.ai / Colab / server bất kỳ, miễn là có Python và (khuyến nghị) GPU.
 
